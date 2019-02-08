@@ -1,5 +1,6 @@
 ---
 - hosts: all
   tasks:
-  - name: A P T  G E T  U P D A T E 
-    update_cache:
+  - name: A P T  G E T  U P D A T E
+    apt:
+      update_cache: yes
