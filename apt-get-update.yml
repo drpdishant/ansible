@@ -3,8 +3,8 @@
   tasks:
   - name: A P T  G E T  U P D A T E
     apt:
-      become: yes
-      become_method: sudo
       update_cache: yes
+      become: yes
+      become_user: root
       
       
