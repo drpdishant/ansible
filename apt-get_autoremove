@@ -1,1 +1,8 @@
-
+---
+- hosts: all
+  tasks:
+  - name: A P T  G E T  U P D A T E
+    become: yes
+    become_user: root
+    apt:
+      autoremove: yes
