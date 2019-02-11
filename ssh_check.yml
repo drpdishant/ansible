@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: "{{ host_group }}"
   tasks:
   - name: CHECK SSH CONNECTIVITY
     ping: 
