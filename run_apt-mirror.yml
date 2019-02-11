@@ -1,0 +1,5 @@
+---
+- hosts: all
+  tasks:
+    - name: Run apt-mirror
+      shell: apt-mirror
