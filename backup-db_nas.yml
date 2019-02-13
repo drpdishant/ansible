@@ -4,3 +4,5 @@
   tasks:
     - name: Backup All Database
       shell: docker exec MariaDB mysqldump --all-databases --single-transaction --quick --lock-tables=false > full-backup-$(date +%F).sql -u root --password=admin123
+    - name: Delete Backups Older than a month
+      shell: find ~/ -type f -name 'full-backup-*' -mtime +30 -exec rm {} \;
