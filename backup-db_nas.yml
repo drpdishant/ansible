@@ -2,5 +2,5 @@
 ---
 - hosts: all
   tasks:
-    - name: Run apt-mirror
-      shell:docker exec CONTAINER mysqldump --all-databases --single-transaction --quick --lock-tables=false > full-backup-$(date +%F).sql -u root -p=admin123
+    - name: Backup All Database
+      shell:docker exec MariaDB mysqldump --all-databases --single-transaction --quick --lock-tables=false > full-backup-$(date +%F).sql -u root --password=admin123
