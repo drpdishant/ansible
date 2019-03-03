@@ -1,0 +1,15 @@
+---
+- hosts all
+  tasks
+  - name: Run dist-upgrade
+    apt:
+     upgrade: dist
+     update_cache: yes
+     dpkg_options: 'force-confold,force-confdef'
+  - name: Remove useless packages from the cache
+    apt:
+     autoclean: yes
+
+  - name: Remove dependencies that are no longer required
+    apt:
+     autoremove: yes
