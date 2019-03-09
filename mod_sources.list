@@ -1,0 +1,50 @@
+---
+- name: Backup Original Sources.list and Replace it with custom Sources.list File that points to local repository.
+  hosts: all
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: check if backup already exists
+      stat:
+         path: /etc/apt/sources.list_backup
+      register: sources_backup
+    
+    - name: check if backup already exists
+      stat:
+         path: /etc/apt/sources.list
+      register: sources_original
+
+    - name: Backup Source.list only if it doesn't already exist.
+      copy: 
+          src: /etc/apt/sources.list
+          dest: /etc/apt/sources.list_backup
+      when: 
+        - sources_backup.stat.exists == False
+    
+    - name: Delete the original if Backup and Original Exists
+      file:
+         path: /etc/apt/sources.list
+         state: absent
+      when:
+        - sources_original.stat.exists
+        - sources_backup.stat.exists
+
+    - name: Source.list Bionic
+      copy:
+         dest: /etc/apt/sources.list
+         content: |
+            deb ftp://192.168.4.242/ubuntu_repo bionic main restricted universe multiverse
+            deb ftp://192.168.4.242/ubuntu_repo bionic-security main restricted universe multiverse
+            deb ftp://192.168.4.242/ubuntu_repo bionic-updates main restricted universe multiverse
+            deb ftp://192.168.4.242/ubuntu_repo bionic-backports main restricted universe multiverse
+      when: ansible_lsb.codename == 'bionic'
+
+    - name: Source.list Xenial 
+      copy:
+         dest: /etc/apt/sources.list
+         content: |
+           deb ftp://192.168.4.242/ubuntu_repo xenial main restricted universe multiverse
+           deb ftp://192.168.4.242/ubuntu_repo xenial-security main restricted universe multiverse
+           deb ftp://192.168.4.242/ubuntu_repo xenial-updates main restricted universe multiverse
+           deb ftp://192.168.4.242/ubuntu_repo xenial-backports main restricted universe multiverse
+      when: ansible_lsb.codename == 'xenial'
