@@ -19,6 +19,7 @@
           src: /etc/apt/sources.list
           dest: /etc/apt/sources.list_backup
           remote_src: yes
+          mode: preserve
       when: 
         - sources_backup.stat.exists == False
     
