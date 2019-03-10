@@ -1,5 +1,7 @@
 ---
 - name: Backup Gitlab and Remove Backups older than a week
+  become: yes
+  become_method: sudo
   tasks:
   - name: Run  Gitlab Backup command
     shell: gitlab-rake gitlab:backup:create
