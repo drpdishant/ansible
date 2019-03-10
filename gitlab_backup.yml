@@ -1,0 +1,9 @@
+---
+- name: Backup Gitlab and Remove Backups older than a week
+  tasks:
+  - name: Run  Gitlab Backup command
+    shell: gitlab-rake gitlab:backup:create
+    register: gitlab_backup
+  - name: Delete Backups Older than Two Days
+    shell: find  -type f -name '*_gitlab_backup.tar' -mtime +2 -exec rm {} \;
+    when: gitlab_backup is succeeded
