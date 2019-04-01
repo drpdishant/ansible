@@ -1,7 +1,20 @@
 ---
+<<<<<<< HEAD
 - hosts: all
   become: yes
   become_method: sudo
   tasks:
   - name: Gitlab backup
     shell: docker exec -t gitlab gitlab-rake gitlab:backup:create
+=======
+- name: Backup Gitlab and Remove Backups older than a week
+  become: yes
+  become_method: sudo
+  tasks:
+  - name: Run  Gitlab Backup command
+    shell: gitlab-rake gitlab:backup:create
+    register: gitlab_backup
+  - name: Delete Backups Older than Two Days
+    shell: find  -type f -name '*_gitlab_backup.tar' -mtime +2 -exec rm {} \;
+    when: gitlab_backup is succeeded
+>>>>>>> dbb7ba0f5db7815eebea4cca7ce4559e6c68d850

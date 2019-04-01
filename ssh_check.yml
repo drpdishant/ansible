@@ -3,4 +3,7 @@
   tasks:
   - name: CHECK SSH CONNECTIVITY
     ping: 
+<<<<<<< HEAD
     when: ansible_distribution == "MacOSX"
+=======
+>>>>>>> dbb7ba0f5db7815eebea4cca7ce4559e6c68d850

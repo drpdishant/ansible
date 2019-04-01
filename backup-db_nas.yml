@@ -1,8 +1,17 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> dbb7ba0f5db7815eebea4cca7ce4559e6c68d850
 ---
 - hosts: all
   tasks:
     - name: Backup All Database
       shell: docker exec MariaDB mysqldump --all-databases --single-transaction --quick --lock-tables=false > full-backup-$(date +%F).sql -u root --password=admin123
+<<<<<<< HEAD
     
     - name: Delete Backups Older than a week
       shell: find ~/ -type f -name 'full-backup-*' -mtime +7 -exec rm {} \;
+=======
+    - name: Delete Backups Older than a month
+      shell: find ~/ -type f -name 'full-backup-*' -mtime +30 -exec rm {} \;
+>>>>>>> dbb7ba0f5db7815eebea4cca7ce4559e6c68d850
