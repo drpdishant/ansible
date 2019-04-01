@@ -1,0 +1,7 @@
+---
+- hosts: all
+  become: yes
+  become_method: sudo
+  tasks:
+  - name: Gitlab backup
+    shell: docker exec -t gitlab gitlab-rake gitlab:backup:create

@@ -1,0 +1,11 @@
+---
+- hosts: all
+  name: Get_VSCODE
+  become: yes
+  become_method: sudo
+  tasks:
+   - name: Get Latest Chrome
+     shell: wget https://az764295.vo.msecnd.net/stable/05f146c7a8f7f78e80261aa3b2a2e642586f9eb3/code_1.32.1-1552006243_amd64.deb
+     args:
+      chdir: /sharedfolders/share/Software/Ubuntu_Soft
+      warn: False

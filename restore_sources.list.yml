@@ -1,0 +1,13 @@
+---
+- name: Restore Original sources.list.
+  hosts: all
+  become: yes
+  become_method: sudo
+  tasks:
+    - name: Restore Original Source.list from Backup
+      copy: 
+         remote_src: true
+         mode: preserve
+         src: /etc/apt/sources.list_backup
+         dest: /etc/apt/sources.list
+      when: ansible_distribution=="Ubuntu"

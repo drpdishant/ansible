@@ -1,0 +1,41 @@
+---
+- hosts: all
+  name: Replace most used app packages with latest versions
+  become: yes
+  become_method: sudo
+  tasks:
+   - name: Remove Older Chrome
+     shell: find -type f -name "google-chrome-stable*" -mtime +6 -exec rm -f {} \;
+     args:
+      chdir: /sharedfolders/share/Software/Ubuntu_Soft
+     register: remove_chrome
+     
+   - name: Check if Chrome Exists
+     stat:
+      path: /sharedfolders/share/Software/Ubuntu_Soft/google-chrome-stable_current_amd64.deb
+     register: google_chrome
+     
+   - name: Get Latest Chrome
+     shell: wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+     args:
+      chdir: /sharedfolders/share/Software/Ubuntu_Soft
+      warn: False
+     when: google_chrome.stat.exists == False
+      
+   - name: Remove Older Skype
+     shell: find -type f -name "skypeforlinux*" -mtime +6 -exec rm -f {} \;
+     args:
+      chdir: /sharedfolders/share/Software/Ubuntu_Soft
+     register: remove_skype
+   
+   - name: Check if Skype Exists
+     stat:
+      path: /sharedfolders/share/Software/Ubuntu_Soft/skypeforlinux-64.deb
+     register: skype
+   
+   - name: Get Latest Skype
+     shell: wget https://repo.skype.com/latest/skypeforlinux-64.deb
+     args:
+      chdir: /sharedfolders/share/Software/Ubuntu_Soft
+      warn: False
+     when: skype.stat.exists == False
